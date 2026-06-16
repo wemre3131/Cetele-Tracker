@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çetele Tracker</title>
+    <style>
+        *,::before,::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: oklch(0.06 0.000 0);
+            --surface: oklch(0.10 0.006 110);
+            --surface-raised: oklch(0.14 0.008 110);
+            --border: oklch(0.18 0.005 110);
+            --primary: oklch(0.68 0.080 110);
+            --primary-dim: oklch(0.53 0.055 110);
+            --ink: oklch(0.92 0.006 110);
+            --ink-muted: oklch(0.62 0.006 110);
+            --ink-dim: oklch(0.50 0.005 110);
+            --accent: oklch(0.55 0.10 65);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 3rem 1.25rem;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 680px;
+            width: 100%;
+        }
+
+        /* ─── Header ─── */
+
+        header {
+            text-align: center;
+            padding: 3.5rem 0 2.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-logo {
+            display: block;
+            margin: 0 auto 1.25rem;
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+            border-radius: var(--radius-sm);
+        }
+
+        header h1 {
+            font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--primary);
+            text-wrap: balance;
+        }
+
+        header p {
+            margin-top: 0.65rem;
+            color: var(--ink-muted);
+            font-size: 1.05rem;
+        }
+
+        /* ─── Sections ─── */
+
+        section {
+            padding: 2.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+            text-wrap: balance;
+        }
+
+        p {
+            color: var(--ink);
+            margin-bottom: 1rem;
+            max-width: 65ch;
+        }
+
+        /* ─── Blockquote ─── */
+
+        blockquote {
+            border-left: 3px solid var(--primary);
+            padding: 1rem 1.25rem;
+            margin: 1.25rem 0;
+            background: var(--surface);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            color: var(--ink-muted);
+            font-style: italic;
+            max-width: 65ch;
+        }
+        blockquote strong {
+            color: var(--ink);
+        }
+
+        /* ─── Status Badge ─── */
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-md);
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 0.925rem;
+        }
+
+        .status-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+        .status-badge .dot--live {
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.25; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .status-badge .dot--live {
+                animation: none;
+                opacity: 0.7;
+            }
+        }
+
+        /* ─── Download Buttons ─── */
+
+        .downloads {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1.25rem;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.8rem 1.75rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.925rem;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background: var(--surface-raised);
+            border-color: var(--primary);
+        }
+
+        .download-btn:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .download-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* ─── Footer ─── */
+
+        footer {
+            text-align: center;
+            padding: 2rem 0 1.5rem;
+            color: var(--ink-dim);
+            font-size: 0.85rem;
+        }
+
+        /* ─── Page-load fade ─── */
+
+        @media (prefers-reduced-motion: no-preference) {
+            .container {
+                animation: fadeIn 0.6s ease-out;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── Responsive ─── */
+
+        @media (max-width: 540px) {
+            body {
+                padding: 2rem 1rem;
+            }
+            header {
+                padding: 2.5rem 0 2rem;
+            }
+            section {
+                padding: 2rem 0;
+            }
+            .downloads {
+                flex-direction: column;
+            }
+            .download-btn {
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 4rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img class="header-logo" src="https://github.com/wemre3131/Cetele-Tracker/raw/ae227aee5b9a10712f8bbcbdbb0006d41bebf20e/logo.png" alt="Çetele Tracker logo" width="56" height="56">
+            <h1>Çetele Tracker</h1>
+            <p>İman yolculuğunda senin takipçin</p>
+        </header>
+
+        <section>
+            <h2>Info</h2>
+            <p>
+                <strong>Çetele Tracker</strong>, iman yolculuğunda kullanıcıların kendilerini
+                takip etmelerine ve gelişimlerini düzenli olarak kayıt altına almalarına
+                yardımcı olmak amacıyla geliştirilmiş bir uygulamadır.
+            </p>
+        </section>
+
+        <section>
+            <h2>Giriş</h2>
+            <p>
+                Şu an için uygulamaya yalnızca davet/kod sistemi üzerinden erişim
+                sağlanabilmektedir.
+            </p>
+            <blockquote>
+                <strong>Not:</strong> Giriş kodu talebi için lütfen iletişime geçmeyiniz.
+                Kodlar bireysel olarak dağıtılmamaktadır.
+            </blockquote>
+        </section>
+
+        <section>
+            <h2>Durum</h2>
+            <div class="status-badge">
+                <span class="dot dot--live" aria-hidden="true"></span>
+                Uygulama aktif olarak geliştirilmektedir ve yeni özellikler üzerinde çalışılmaktadır.
+            </div>
+        </section>
+
+        <section>
+            <h2>İndir</h2>
+            <div class="downloads">
+                <a class="download-btn" href="https://github.com/wemre3131/Cetele-Tracker/releases/download/v1/CeteleTracker-Setup-1.0.0.exe" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12v6a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-6"/>
+                        <path d="M12 3v12m0 0-4-4m4 4 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Windows
+                </a>
+                <a class="download-btn" href="https://github.com/wemre3131/Cetele-Tracker/releases/download/v1/CeteleTracker.apk" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14 7h-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Android
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2026 Çetele Tracker
+        </footer>
+    </div>
+</body>
+</html>
