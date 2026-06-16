@@ -13,5 +13,5 @@
 🚧 Uygulama aktif olarak geliştirilmektedir ve yeni özellikler üzerinde çalışılmaktadır.
 
 
-# Logolar
-![Çetele Tracker Logo](shader-logo.png)
+# Logo
+![Çetele Tracker Logo](logo.png)
