@@ -1,2 +1,5 @@
 # Cetele-Tracker
-Cetele Tracker is a Private App with Code. To get a code please write us at: 
+Cetele Tracker, Bize Iman´da yardim edecek Uygulama, Suanlik sadece Kod ile Giris yapabiliyorsunuz - **Bu kodu almak icin lütfen bana yazmayiniz**
+
+# Logo
+[Logo](shader-logo.png)
