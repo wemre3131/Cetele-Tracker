@@ -13,5 +13,5 @@
 🚧 Uygulama aktif olarak geliştirilmektedir ve yeni özellikler üzerinde çalışılmaktadır.
 
 
-# Logo
+# Icon
 ![Çetele Tracker Logo](logo.png)
